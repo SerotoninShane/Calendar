@@ -1,0 +1,501 @@
+/* Define custom fonts */
+@font-face {
+    font-family: 'Fox';
+    src: url('../Fonts/FoxAndBower.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Sonora';
+    src: url('../Fonts/Sonorous-Rough.otf') format('opentype');
+}
+
+/* Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Sonora', sans-serif;
+    scroll-behavior: smooth;
+}
+
+/* Body styles */
+body {
+    /* Format */
+    position: relative;
+    width: 100%;
+
+    /* Style */
+    color: #333;
+}
+
+/* Header styles */
+header {
+    /* Format */
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    top: 0;
+    width: inherit;
+    min-height: 120px;
+
+    /* Style */
+    background-color: #fff;
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 20%);
+    z-index: 100;
+}
+
+header a img {
+    width: 1rem;
+    height: 1rem;
+    position: relative;
+}
+
+header .Wrapper {
+    height: inherit;
+    padding-inline: 2rem;
+    justify-content: space-around;
+    align-items: center;
+}
+
+header .Hero {
+    font-size: 28px;
+    font-weight: 700;
+    font-family: 'Fox', sans-serif;
+    flex-direction: column;
+    align-items: center;
+}
+
+header .Hero:hover {
+    color: #df312c;
+    cursor: pointer;
+    transition: .25s;
+}
+
+header span {
+    font-size: 14px;
+}
+
+/* Anchor styles */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Flex container */
+.💪 {
+    display: flex;
+}
+
+/* Overlay styles */
+.🔳 {
+    /* Format */
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    /* Style */
+    background-image: linear-gradient(90deg,rgba(0,0,0,.9),rgba(100, 100, 100, 0.2));
+    z-index: 2;
+}
+
+/* Navigation styles */
+.🧭 {
+    /* Format */
+    width: fit-content;
+    height: inherit;
+    flex-direction: row;
+    place-items: center;
+
+    /* Style */
+    list-style: none;
+}
+
+/* Navigation item styles */
+.📍 {
+    /* Format */
+    width: fit-content;
+    padding: .75rem;
+    margin: .5rem;
+    border-radius: .5rem;
+
+    /* Style */
+    background-color: white;
+    color: #333;
+    font-family: 'Fox', sans-serif;
+    transition: .25s;
+    font-size: 1.1rem;
+}
+
+/* Special styles for certain navigation items */
+.📍:nth-child(4){
+    display: none;
+    background-color: white;
+    width: 34px;
+    height: 34px;
+    position: relative;
+    object-fit:contain;
+}
+
+/* Hover effect on navigation items */
+ul:hover .📍:not(:hover) {
+    transform: scale(1.05);
+}
+
+ul:has(.📍:hover) .📍:not(:hover) {
+    transform: scale(1);
+}
+
+.📍:hover {
+    opacity: .9;
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+/* Schedule container styles */
+.Schedule {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    margin-inline: auto;
+    max-width: 1150px;
+    max-height: 70vh;
+    background-color: white;
+    border-radius: 2rem;
+    overflow: hidden;
+    margin-block: 2rem;
+    margin-block-end: 6rem;
+}
+
+/* Information section within the schedule */
+.Schedule .info {
+    background-image: url('../Images/cal.png');
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000, 0px 1px 0 #000, 0px -1px 0 #000, -1px 0px 0 #000, 1px 0px 0 #000, 2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000, -2px -2px 0 #000, 0px 2px 0 #000, 0px -2px 0 #000, -2px 0px 0 #000, 2px 0px 0 #000;
+}
+
+/* Date section within the schedule */
+.Schedule .dates {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    color: rgba(255, 255, 255, 1);
+    font-size: 1.15rem;
+    padding: 3%;
+    padding-left: 5%;
+    z-index: 3;
+}
+
+/* Events section within the schedule */
+.Schedule .events {
+    color: white;
+    font-size: 150%;
+    position: relative;
+    text-align: center;
+    z-index: 3;
+}
+
+/* Flex container for events */
+.Schedule .event-flex {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+    z-index: 3;
+}
+
+/* Individual event within the schedule */
+.Schedule .event {
+    padding-block: 2vh;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Time section within events */
+.Schedule .time {
+    position: relative;
+    color: white;
+    font-size: 50%;
+    margin-inline: 1vw;
+    z-index: 3;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-family: 'Fox', sans-serif;
+}
+
+/* Title section within events */
+.Schedule .hero {
+    position: relative;
+    color: white;
+    font-size: 2rem;
+    margin-inline: 1vw;
+    z-index: 3;
+    text-align: center;
+    margin-block-end: 2vh;
+    font-family: 'Fox', sans-serif;
+}
+
+/* Style for last month within calendar */
+.Schedule .lastMonth {
+    background-color: #ababab;
+    opacity: 60%;
+}
+
+/* Grid container for days within calendar */
+.Schedule .grid {
+    display: grid;
+    grid-template: repeat(8,1fr) / repeat(7,1fr);
+    padding: 1%;
+}
+
+/* Name styling within calendar */
+.Schedule .name {
+    font-weight: 1000;
+    user-select: none;
+}
+
+/* Individual day styling within calendar */
+.Schedule .grid .day {
+    padding: 1vh;
+    border-radius: 5rem;
+    transition: .5s;
+    margin: 1vh;
+    transition: .5s;
+    display: grid;
+    align-items: center;
+    text-align: center;
+    font-family: 'Fox', sans-serif;
+}
+
+/* Hover effect on individual day */
+.Schedule .day.interface:hover {
+    background-color: #333;
+    color: white;
+}
+
+/* Opacity effect on non-hovered days when calendar is hovered */
+.Schedule .grid:has(:hover) .day.interface:not(:hover,.selected) {
+    opacity: .5;
+}
+
+/* Font styling for dates and years within calendar */
+.Schedule :is(.date,.year) {
+    font-family: 'Fox', sans-serif;
+}
+
+/* Navigation styling within calendar */
+.Schedule nav {
+    display: grid;
+    grid-column: 1/-1;
+    grid-template-columns: 1fr 1fr 1fr;
+    place-items: center;
+    font-size: 1.5rem;
+}
+
+/* Selected day styling within calendar */
+.Schedule .selected {
+    background-color: #333;
+    color: white;
+    text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000, 0px 1px 0 #000, 0px -1px 0 #000, -1px 0px 0 #000, 1px 0px 0 #000, 2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000, -2px -2px 0 #000, 0px 2px 0 #000, 0px -2px 0 #000, -2px 0px 0 #000, 2px 0px 0 #000;
+}
+
+/* Interface styling for calendar days */
+.Schedule .interface {
+    cursor: pointer;
+    user-select: none;
+    font-family: 'Fox', sans-serif;
+}
+
+/* Reset button styling within calendar */
+.Schedule .reset {
+    position: relative;
+    border: white solid 1px;
+    border-radius: 4px;
+    padding: .3rem;
+    padding-inline-start: .5rem;
+    margin-inline-start: -1vh;
+    font-size: .6rem;
+    color: white;
+    z-index: 3;
+    opacity: 80%;
+    transition: 1s;
+    height: min-content;
+    border-top-left-radius: 1rem;
+}
+
+/* Hover effect on reset button */
+.Schedule .reset:hover {
+    opacity: 100%;
+}
+
+.numberline {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    max-width: 1150px; 
+    margin-inline: auto;
+    background-color: white;
+    transform: translateY(-1.125rem);
+    height: 2rem;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.eventline {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    max-width: 1150px; 
+    margin-inline: auto;
+    transform: translateY(-1.125rem);
+    height: 2rem;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+
+.eventline .eventstamp{
+    position: relative;
+    height: 2rem;
+    width: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.numberline .timestamp {
+    position: relative;
+    height: 2rem;
+    width: 100%;
+    display: grid;
+    place-items: center;
+
+}
+
+.numberline .timestamp:hover {
+    cursor: pointer;
+    transform: scale(1.5);
+    background-color: white;
+    z-index: 1;
+    transition: .2s;
+    background-color: white;
+}
+
+.numberline .timestamp:not(:hover) {
+    transition: .3s;
+}
+
+/* Base styles for pins */
+.pin {
+   position: absolute;
+   top: 3px;
+   width: 20px;
+   height: 20px;
+   position: block;
+   background-color: transparent;
+   border-radius: 100%;
+   cursor: pointer;
+   border-color: transparent;
+   transition: .4s;
+   display: grid;
+   place-items: center;
+   text-align: center;
+   color: white;
+ }
+
+.pin:hover {
+   scale: 1.2;
+   width: 10;
+   font-size: 4px;
+}
+body:has(.pin:hover) .pin:hover::after{
+    bottom: 2px;
+    border-color: transparent;
+ }
+
+
+ .pin::after {
+   content: '';
+   position: absolute;
+   bottom: -12px;
+   left: 50%;
+   width: 0;
+   height: 0;
+   border-left: 6px solid transparent;
+   border-right: 6px solid transparent;
+   border-top: 12px solid;
+   transform: translateX(-50%) rotate(0deg) translateY(10%);
+   border-top-left-radius: 1rem ;
+   border-top-right-radius: 1rem ;
+   border-top-color: inherit;
+   pointer-events: none;
+   transition: .5s;
+ }
+
+/* Responsive styles for smaller screens */
+@media only screen and (max-width: 1199px) {
+    /* Adjust grid layout for smaller screens */
+    .Schedule {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        max-height: 120vh;
+        border-radius: 0rem;
+    }
+
+    /* Adjust day styling for smaller screens */
+    .Schedule .grid .day {
+        padding: 0vh;
+        border-radius: 5rem;
+        transition: .5s;
+        margin: 1vw;
+        transition: .5s;
+        display: grid;
+        align-items: center;
+        text-align: center;
+        font-family: 'Fox', sans-serif;
+    }
+
+    /* Adjust reset button styling for smaller screens */
+    .Schedule .reset {
+        border-top-left-radius: 0rem;
+        padding-inline-start: 0.3rem;
+    }
+}
+
+/* 
+    The following styles target screens with a maximum width of 950 pixels.
+    Within this media query:
+    - It hides the first three navigation items.
+    - It displays the fourth navigation item and adjusts its styling.
+*/
+
+@media only screen and (max-width: 950px) {
+    .📍:nth-child(1){
+        display: none;
+    }
+    .📍:nth-child(2){
+        display: none;
+    }
+    .📍:nth-child(3){
+        display: none;
+    }
+    .📍:nth-child(4){
+        display: block;
+        margin: 0;
+        padding: 0;
+        padding-inline: 0;
+        padding-block: 0;
+    }
+
+    .📍:nth-child(4) *{
+        background-color: white;
+        width: 34px;
+        height: 34px;
+        position: relative;
+        object-fit:contain;
+    }
+}
