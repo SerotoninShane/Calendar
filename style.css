@@ -1,12 +1,12 @@
 /* Define custom fonts */
 @font-face {
     font-family: 'Fox';
-    src: url('./Fonts/FoxAndBower.otf') format('opentype');
+    src: url('../Fonts/FoxAndBower.otf') format('opentype');
 }
 
 @font-face {
     font-family: 'Sonora';
-    src: url('./Fonts/Sonorous-Rough.otf') format('opentype');
+    src: url('/Fonts/Sonorous-Rough.otf') format('opentype');
 }
 
 /* Global styles */
@@ -171,7 +171,7 @@ ul:has(.📍:hover) .📍:not(:hover) {
 
 /* Information section within the schedule */
 .Schedule .info {
-    background-image: url('./Images/cal.png');
+    background-image: url('Images/cal.png');
     background-position: center;
     background-size: cover;
     position: relative;
