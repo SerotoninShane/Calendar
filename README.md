@@ -1,4 +1,4 @@
-# Calendar App README
+# Calendar App
 This JavaScript application provides an interactive calendar with functionalities like navigating through months, selecting dates, and displaying events for each day.
 The calendar also visually represents daily events on a timeline.
 
