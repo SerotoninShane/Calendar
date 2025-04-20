@@ -1,5 +1,5 @@
 
-
+//Todo Inspiration
 //https://app.uizard.io/templates/XXJOvmKW0jhEyYZdmA7w/preview
 
 // Function to create a new div element with specified classes and content
@@ -20,17 +20,18 @@ class Calendar {
     static year = this.selectedDate.getFullYear();
     static time = this.selectedDate.getHours();
     static months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    static eventsCustom = [];
 
-    static eventsDaily = [
-        [['SN','7:00am'],['Wake Up','6:00am']],
-        [['M','7:00am'],['Wake Up','7:00am']],
-        [['T','7:00am'],['Wake Up','8:00am']],
-        [['W','7:00am'],['Wake Up','9:00am']],
-        [['TH','7:00am'],['Wake Up','10:00am']],
-        [['F','7:00am'],['Wake Up','11:00am']],
-        [['S','7:00am'],['Wake Up','12:00pm']]
-    ]
+    static events = [
+        { date: '2024-12-25', repeats: true, frequency: 'yearly', color: 'red', events: [['Christmas', '12:00am']] },
+        { date: '2024-12-25', repeats: true, frequency: 'yearly', color: 'pink', events: [['Yearly Reminder', '12:00am']] },
+        { date: '2024-12-25', repeats: true, frequency: 'yearly', color: null, events: [['Overload Test', '12:00am']] },
+        { date: '2024-12-25', repeats: true, frequency: 'yearly', color: null, events: [['Overload Test', '12:00am']] },
+        { date: '2024-12-31', repeats: true, frequency: 'yearly', color: 'green', events: [['New Year\'s Eve', '12:00am']] },
+        { date: '2024-12-31', repeats: true, frequency: 'daily', color: null, events: [['Daily Reminder', '6:00am']] },
+        { date: '2024-12-06', repeats: true, frequency: 'weekly', color: 'gray', events: [['PayDay', '10:00am']] },
+        { date: '2024-12-01', repeats: true, frequency: 'monthly', color: 'blue', events: [['Monthly Reminder', '3:00pm']] },
+        { date: '2024-01-01', repeats: true, frequency: 'yearly', color: 'orange', events: [['New Year\'s', '12:00am']] }
+    ];
 
     // Method to handle selecting a day on the calendar
     static selectDay(element) {
@@ -93,20 +94,57 @@ class Calendar {
     }
 
     // Method to update calendar information based on selected date
+    static getEventsForDate(date) {
+
+        const selectedDateString = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+        
+        return this.events.filter(event => {
+                    const [year, month, day] = event.date.split("-");
+                    const eventDateString = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                    if (!event.repeats && eventDateString === selectedDateString) return true;
+            // Handle repeating events
+            if (event.repeats) {
+                switch (event.frequency) {
+                    case 'daily':
+                        return true; // Always matches for daily events
+                    case 'weekly':
+                        return date.getDay() === parseInt(day - 1) % 7;
+                    case 'monthly':
+                        return date.getDate() == parseInt(day); // Match the day of the month
+                    case 'yearly':
+                        return (date.getDate() == parseInt(day) && date.getMonth() + 1 == parseInt(month)); // Match the day and month
+                    case 'custom':
+                        break;
+                }
+            }
+        
+            return false; // No match
+        });
+    }
+    
+    
+    
+    // Method to update calendar information based on selected date
     static updateInfo() {
         // Update calendar month, date, and year
         Display.change(Display.calendarMonth, this.months[this.month]);
         Display.change(Display.calendarDate, `${this.months[this.selectedDate.getMonth()]} ${this.selectedDate.getDate()}${["st", "nd", "rd"][((this.selectedDate.getDate() + 90) % 100 - 10) % 10 - 1] || "th"}`);
         Display.change(Display.calendarYear, this.selectedDate.getFullYear());
-        Display.change(Display.calendarEvents, '');
-
-        // Display events for the selected day
-        this.eventsDaily[this.selectedDate.getDay()].forEach(events => events.forEach((event, isTime) => {
-            Display.update();
-            isTime ? Display.calendarEvent.append(createDiv(['time'], event)) : Display.calendarEvents.append(createDiv(['event'], event));
-        }));
-
+        Display.change(Display.calendarEvents, ''); // Clear existing events
+    
+        // Get events for the selected date
+        const eventsForDate = this.getEventsForDate(this.selectedDate);
+    
+        // Append the events to the display
+        eventsForDate.forEach(event => {
+            event.events.forEach(([eventName, eventTime]) => {
+                const eventDiv = createDiv(['event'], eventName);
+                eventDiv.append(createDiv(['time'], eventTime));
+                Display.calendarEvents.append(eventDiv);
+            });
+        });
     }
+
 
     // Method to generate calendar grid for a specific month
     static generate(year, month) {
@@ -126,7 +164,38 @@ class Calendar {
                 }
             }
             // Append day to calendar grid
-            Display.calendarGrid.append(createDiv(date.setHours(0, 0, 0, 0) == this.selectedDate.setHours(0, 0, 0, 0) ? ['selected', 'day', 'interface', 'Grit'] : ['day', 'interface'], date.getDate()));
+        // Create the day element
+        const dayDiv = createDiv(
+            date.setHours(0, 0, 0, 0) == this.selectedDate.setHours(0, 0, 0, 0)
+            ? ['selected', 'day', 'interface', 'Grit']
+            : ['day', 'interface'],
+            date.getDate()
+        );
+
+        const eventsForDay = this.getEventsForDate(date);
+        const dotContainer = createDiv(['event-dot-container']);
+        // If there are events, create dots
+        if (eventsForDay.length > 0) {
+            eventsForDay.forEach(event => {
+                let eventColor = event.color || 'white';
+                if (event.frequency === 'daily') {
+                    return;
+                }
+                event.events.forEach(() => {
+                const dot = createDiv(['event-dot']);
+                    dot.style.backgroundColor = eventColor;
+                    dot.style.border = eventColor === 'white' ? '2px solid black' : 'none'; // Black outline if no color
+                    
+                // Limit to 3 dots per day
+                if (dotContainer.childElementCount < 3) dotContainer.append(dot);
+
+                })
+            });
+        }
+
+        // Append the day div to the calendar grid
+        dayDiv.append(dotContainer);
+        Display.calendarGrid.append(dayDiv);
         }
         UI.update();
     }
@@ -178,46 +247,6 @@ class Display {
 
 // Generate initial calendar for current month
 Calendar.generate(Calendar.year, Calendar.month);
+
 // Initialize UI
 UI.initialize();
-
-
-
-let numberline = document.querySelector('.numberline');
-let eventline = document.querySelector('.eventline');
-let pin = document.querySelector('.pin');
-
-for(i = 0; i<=23; i++) {   
-    let timestamp = createDiv(['timestamp'],(i>12)?i-12:i||12);
-    timestamp.style.background = (i < Calendar.time)? '#000': `linear-gradient(to right, hsl(0,0%,${100-(i+9-Calendar.time)*3}%), hsl(0,0%,${100-(i+10-Calendar.time)*3}%)`;
-    timestamp.style.color = (i < Calendar.time)? '#aaa': 'white';
-    numberline.append(timestamp);
-
-    let eventstamp = createDiv(['eventstamp', `${(i>11)?i+'PM' : i+'AM'}`],'');
-    eventline.append(eventstamp);
-    let pin = createDiv(['pin'],'')
-    eventstamp.append(pin);
-}
-
-
-const formattedEvents = Calendar.eventsDaily.map(dayEvents => {
-    return dayEvents.map(event => {
-      const [name, timeString] = event;
-      const [hours, minutes] = timeString.split(":");
-      const amPm = timeString.slice(-2).toUpperCase();
-      document.querySelector("body > section.eventline > div.eventstamp.\\37 AM > div")
-      return {
-        name,
-        hours: parseInt(hours),
-        minutes: parseInt(minutes),
-        amPm,
-      };
-    });
-  });
-
-  formattedEvents[Calendar.weekDay].forEach((e)=> {
-    console.log(document.getElementsByClassName(e.hours + e.amPm)[0])
-        document.getElementsByClassName(e.hours + e.amPm)[0].children[0].style.backgroundColor = '#333'
-        document.getElementsByClassName(e.hours + e.amPm)[0].children[0].style.borderColor = '#333'
-  });
-

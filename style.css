@@ -155,6 +155,8 @@ ul:has(.📍:hover) .📍:not(:hover) {
     cursor: pointer;
 }
 
+/* ==================== Section: Schedule ==================== */
+
 /* Schedule container styles */
 .Schedule {
     display: grid;
@@ -333,108 +335,22 @@ ul:has(.📍:hover) .📍:not(:hover) {
     opacity: 100%;
 }
 
-.numberline {
-    position: relative;
+/* ==================== Section: Event Dots ==================== */
+ 
+.event-dot-container {
     display: flex;
     flex-direction: row;
-    max-width: 1150px; 
-    margin-inline: auto;
-    background-color: white;
-    transform: translateY(-1.125rem);
-    height: 2rem;
-    border-radius: 1rem;
-    overflow: hidden;
+    place-self: center;
+    gap: .25vw;
 }
 
-.eventline {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    max-width: 1150px; 
-    margin-inline: auto;
-    transform: translateY(-1.125rem);
-    height: 2rem;
-    border-radius: 1rem;
-    overflow: hidden;
+.event-dot {
+    width: 10px; /* Size of the dot */
+    height: 10px;
+    border-radius: 50%; /* Make it round */
 }
 
-
-.eventline .eventstamp{
-    position: relative;
-    height: 2rem;
-    width: 100%;
-    display: grid;
-    place-items: center;
-}
-
-.numberline .timestamp {
-    position: relative;
-    height: 2rem;
-    width: 100%;
-    display: grid;
-    place-items: center;
-
-}
-
-.numberline .timestamp:hover {
-    cursor: pointer;
-    transform: scale(1.5);
-    background-color: white;
-    z-index: 1;
-    transition: .2s;
-    background-color: white;
-}
-
-.numberline .timestamp:not(:hover) {
-    transition: .3s;
-}
-
-/* Base styles for pins */
-.pin {
-   position: absolute;
-   top: 3px;
-   width: 20px;
-   height: 20px;
-   position: block;
-   background-color: transparent;
-   border-radius: 100%;
-   cursor: pointer;
-   border-color: transparent;
-   transition: .4s;
-   display: grid;
-   place-items: center;
-   text-align: center;
-   color: white;
- }
-
-.pin:hover {
-   scale: 1.2;
-   width: 10;
-   font-size: 4px;
-}
-body:has(.pin:hover) .pin:hover::after{
-    bottom: 2px;
-    border-color: transparent;
- }
-
-
- .pin::after {
-   content: '';
-   position: absolute;
-   bottom: -12px;
-   left: 50%;
-   width: 0;
-   height: 0;
-   border-left: 6px solid transparent;
-   border-right: 6px solid transparent;
-   border-top: 12px solid;
-   transform: translateX(-50%) rotate(0deg) translateY(10%);
-   border-top-left-radius: 1rem ;
-   border-top-right-radius: 1rem ;
-   border-top-color: inherit;
-   pointer-events: none;
-   transition: .5s;
- }
+/* ==================== Section: Responsive ==================== */
 
 /* Responsive styles for smaller screens */
 @media only screen and (max-width: 1199px) {
